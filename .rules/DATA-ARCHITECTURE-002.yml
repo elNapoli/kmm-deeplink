@@ -1,0 +1,17 @@
+rules:
+  - id: DATA-ARCHITECTURE-002-no-files-in-data-root
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.data$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: "[DATA-ARCHITECTURE-002] No se permiten archivos sueltos en 'data'. Los archivos deben estar en: 'datasource', 'repository', 'mapper', 'model', 'service' y 'utils'."
+    severity: ERROR

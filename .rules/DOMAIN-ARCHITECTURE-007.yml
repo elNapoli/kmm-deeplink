@@ -1,0 +1,55 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-007-domain-must-not-depend-on-other-layers
+    pattern-either:
+      - patterns:
+          - pattern: import $IMPORT
+          - metavariable-regex:
+              metavariable: $IMPORT
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.data.*$
+          - pattern-inside: |
+              package $PKG
+              ...
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain.*$
+      - patterns:
+          - pattern: import $IMPORT
+          - metavariable-regex:
+              metavariable: $IMPORT
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.di.*$
+          - pattern-inside: |
+              package $PKG
+              ...
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain.*$
+      - patterns:
+          - pattern: import $IMPORT
+          - metavariable-regex:
+              metavariable: $IMPORT
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.presentation.*$
+          - pattern-inside: |
+              package $PKG
+              ...
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain.*$
+      - patterns:
+          - pattern: import $IMPORT
+          - metavariable-regex:
+              metavariable: $IMPORT
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.ui.*$
+          - pattern-inside: |
+              package $PKG
+              ...
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-007] La capa ''domain'' **NO DEBE** depender de otras capas (data, di, presentation, ui). El dominio debe ser independiente.'
+    severity: ERROR

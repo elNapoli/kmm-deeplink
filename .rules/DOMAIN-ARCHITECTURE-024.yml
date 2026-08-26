@@ -1,0 +1,21 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-024-exceptionhandler-must-have-suffix
+    patterns:
+      - pattern: class $NAME
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase\.exceptionhandler$
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: ^(?!.*ExceptionHandler$).*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-024] Las clases en ''domain.usecase.exceptionhandler'' **DEBEN** tener el sufijo ''ExceptionHandler''.'
+    severity: ERROR

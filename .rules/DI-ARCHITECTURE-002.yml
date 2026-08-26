@@ -1,0 +1,18 @@
+rules:
+  - id: DI-ARCHITECTURE-002-modules-must-be-immutable
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          var $VAR = module { ... }
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.di$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DI-ARCHITECTURE-002] Los módulos de DI **DEBEN** ser inmutables. Usa ''val'' en lugar de ''var''.'
+    severity: ERROR

@@ -1,0 +1,20 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-015-usecase-error-naming-convention
+    patterns:
+      - pattern: |
+          class $USECASE(...) : FlowUseCase<$_, $_, $E>()
+      - pattern-regex: |
+          class\s+(?<NAME>\w+)UseCase.+
+      - pattern-not-regex: |
+          class\s+(?<NAME>\w+)UseCase\s*\([^\)]*\)\s*:\s*FlowUseCase\s*<\s*[^,]+\s*,\s*[^,]+\s*,\s*\k<NAME>Error\s*>\s*\([^\)]*\).+
+      - metavariable-comparison:
+          metavariable: $E
+          comparison: str($E) not in ["Unit", "Int", "Long", "Double", "Float", "String", "Boolean", "Byte", "Short", "Char"]
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-015] El modelo de error del UseCase debe seguir la convención: si el UseCase es ''XyzUseCase'', el error debe ser ''XyzError''.'
+    severity: ERROR

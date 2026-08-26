@@ -1,0 +1,19 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-006-model-data-classes-must-not-have-annotations
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          @$ANNOTATION
+          data class $CLASS(...)
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.model.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-006] Los data class en ''domain.model'' **NO DEBEN** tener anotaciones. El dominio debe ser independiente de frameworks.'
+    severity: ERROR

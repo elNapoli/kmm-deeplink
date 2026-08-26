@@ -1,0 +1,17 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-018-usecase-exception-handler-naming-convention
+    patterns:
+      - pattern: |
+          class $USECASE(...) : FlowUseCase<$_, $_, $_>()
+      - pattern-regex: |
+          class\s+(?<NAME>\w+)UseCase.+
+      - pattern-not-regex: |
+          class\s+(?<NAME>\w+)UseCase[^{]*override\s+val\s+exceptionHandler\s*:\s*\k<NAME>ExceptionHandler.+
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-018] El exceptionHandler debe seguir la convención: si el UseCase es ''XyzUseCase'', el handler debe ser ''XyzExceptionHandler''.'
+    severity: ERROR

@@ -1,0 +1,33 @@
+rules:
+  - id: DI-ARCHITECTURE-001-module-variables-must-have-module-suffix
+    pattern-either:
+      - patterns:
+          - pattern: |
+              package $PKG
+              ...
+              val $VAR = module { ... }
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.di$
+          - metavariable-regex:
+              metavariable: $VAR
+              regex: ^(?!.*Module$).*$
+      - patterns:
+          - pattern: |
+              package $PKG
+              ...
+              expect val $VAR: Module
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.di$
+          - metavariable-regex:
+              metavariable: $VAR
+              regex: ^(?!.*Module$).*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DI-ARCHITECTURE-001] Las variables de módulos en ''di'' **DEBEN** tener el sufijo ''Module''.'
+    severity: ERROR

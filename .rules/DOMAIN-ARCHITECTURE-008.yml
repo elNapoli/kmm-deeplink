@@ -1,0 +1,30 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-008-repository-must-be-interfaces-with-suffix
+    pattern-either:
+      - patterns:
+          - pattern: |
+              package $PKG
+              ...
+              class $CLASS
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.repository$
+      - patterns:
+          - pattern: |
+              package $PKG
+              ...
+              interface $INTERFACE
+          - metavariable-regex:
+              metavariable: $PKG
+              regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.repository$
+          - metavariable-regex:
+              metavariable: $INTERFACE
+              regex: ^(?!.*Repository$).*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-008] En ''domain.repository'' solo se permiten interfaces con el sufijo ''Repository''.'
+    severity: ERROR

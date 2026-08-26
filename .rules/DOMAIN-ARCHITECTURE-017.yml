@@ -1,0 +1,17 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-017-usecase-params-validator-naming-convention
+    patterns:
+      - pattern: |
+          class $USECASE(...) : FlowUseCase<$_, $_, $_>()
+      - pattern-regex: |
+          class\s+(?<NAME>\w+)UseCase.+
+      - pattern-not-regex: |
+          class\s+(?<NAME>\w+)UseCase[^{]*override\s+val\s+paramsValidator\s*:\s*\k<NAME>ParamsValidator.+
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-017] El paramsValidator debe seguir la convención: si el UseCase es ''XyzUseCase'', el validator debe ser ''XyzParamsValidator''.'
+    severity: ERROR

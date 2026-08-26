@@ -1,0 +1,20 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-014-usecase-result-naming-convention
+    patterns:
+      - pattern: |
+          class $USECASE(...) : FlowUseCase<$_, $R, $_>()
+      - pattern-regex: |
+          class\s+(?<NAME>\w+)UseCase.+
+      - pattern-not-regex: |
+          class\s+(?<NAME>\w+)UseCase\s*\([^\)]*\)\s*:\s*FlowUseCase\s*<\s*[^,]+\s*,\s*\k<NAME>Result\s*,\s*[^>]+\s*>\s*\([^\)]*\).+
+      - metavariable-comparison:
+          metavariable: $R
+          comparison: str($R) not in ["Unit", "Int", "Long", "Double", "Float", "String", "Boolean", "Byte", "Short", "Char"]
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-014] El modelo de resultado del UseCase debe seguir la convención: si el UseCase es ''XyzUseCase'', el resultado debe ser ''XyzResult''.'
+    severity: ERROR

@@ -1,0 +1,19 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-010-usecase-package-only-usecases
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          class $CLASS
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase$
+      - pattern-not-regex: 'class\s+\w+.*:\s*FlowUseCase'
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-010] En ''domain.usecase'' solo se permiten clases que hereden de ''FlowUseCase''.'
+    severity: ERROR

@@ -1,0 +1,10 @@
+rules:
+  - id: PRESENTATION-ARCHITECTURE-001-allowed-presentation-packages
+    patterns:
+      - pattern: package $PKG
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.presentation\.\w+\.(?!(?:action|interceptor|model|contract|route|viewmodel)$)\w+
+    languages: [ kotlin ]
+    message: "[PRESENTATION-ARCHITECTURE-001] Los paquetes en 'presentation' **DEBEN** ser 'action', 'interceptor', 'model', 'contract', 'route' y 'viewmodel'."
+    severity: ERROR

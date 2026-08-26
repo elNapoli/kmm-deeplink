@@ -1,0 +1,24 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-019-usecase-error-must-be-imported-from-usecase-error
+    patterns:
+      - pattern: import $IMPORT
+      - metavariable-regex:
+          metavariable: $IMPORT
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.\w+\..*Error$
+      - metavariable-regex:
+          metavariable: $IMPORT
+          regex: ^(?!.*\.domain\.usecase\.error\.).*$
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-019] Los modelos de Error del UseCase **DEBEN** importarse desde ''domain.usecase.error'', no desde otros paquetes como ''domain.error''.'
+    severity: ERROR

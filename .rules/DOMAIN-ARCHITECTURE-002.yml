@@ -1,0 +1,17 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-002-no-files-in-domain-root
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-002] No se permiten archivos sueltos en ''domain''. Los archivos deben estar en: ''exception'', ''model'', ''repository'', ''usecase'' o ''utils''.'
+    severity: ERROR

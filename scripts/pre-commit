@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "🔍 Running Semgrep architecture validation..."
+
+# Run semgrep on staged files
+semgrep --config=.rules --error
+
+# Capture exit code
+SEMGREP_EXIT_CODE=$?
+
+if [ $SEMGREP_EXIT_CODE -ne 0 ]; then
+    echo "❌ Semgrep found architecture violations. Please fix them before committing."
+    exit 1
+fi
+
+echo "✅ Semgrep validation passed!"
+exit 0

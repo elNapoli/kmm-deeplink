@@ -1,0 +1,21 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-022-usecase-errors-must-have-error-suffix
+    patterns:
+      - pattern: sealed interface $NAME
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase\.error$
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: ^(?!.*Error$).*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-022] Las sealed interface en ''domain.usecase.error'' **DEBEN** tener el sufijo ''Error''.'
+    severity: ERROR

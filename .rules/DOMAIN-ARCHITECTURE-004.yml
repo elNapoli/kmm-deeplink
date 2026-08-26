@@ -1,0 +1,18 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-004-model-data-classes-must-be-immutable
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          data class $CLASS(..., var $PROP: $TYPE, ...)
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.model.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-004] Los data class en ''domain.model'' **DEBEN** ser inmutables. Usa ''val'' en lugar de ''var''.'
+    severity: ERROR

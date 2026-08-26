@@ -1,0 +1,10 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-001-allowed-domain-packages
+    patterns:
+      - pattern: package $PKG
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.(?!exception|model|repository|usecase|utils)\w+
+    languages: [ kotlin ]
+    message: "[DOMAIN-ARCHITECTURE-001] Los paquetes en 'domain' **DEBEN** ser 'exception', 'model', 'repository', 'usecase' y 'utils'."
+    severity: ERROR

@@ -1,0 +1,16 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-011-flowusecase-classes-must-have-usecase-suffix
+    patterns:
+      - pattern: |
+          class $CLASS(...) : FlowUseCase<$PARAM, $RESULT, $ERROR>()
+      - metavariable-regex:
+          metavariable: $CLASS
+          regex: ^(?!.*UseCase$).*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-011] Las clases que heredan de ''FlowUseCase'' **DEBEN** tener el sufijo ''UseCase''.'
+    severity: ERROR

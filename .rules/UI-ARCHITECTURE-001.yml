@@ -1,0 +1,10 @@
+rules:
+  - id: UI-ARCHITECTURE-001-allowed-presentation-packages
+    patterns:
+      - pattern: package $PKG
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.ui\.\w+\.(?!screen|dialog|component|view|theme|utils)\w+
+    languages: [ kotlin ]
+    message: "[UI-ARCHITECTURE-001] Los paquetes en 'ui' **DEBEN** ser 'screen', 'dialog', 'component', 'view', 'theme' y 'utils'."
+    severity: ERROR

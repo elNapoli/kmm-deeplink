@@ -1,0 +1,20 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-003-exception-classes-must-extend-exception
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          class $CLASS
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.exception$
+      - pattern-not-regex: 'class\s+\w+\s*:\s*Exception'
+      - pattern-not-regex: 'class\s+\w+\(.+\)\s*:\s*Exception'
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-003] Las clases en ''domain.exception'' **DEBEN** heredar de ''Exception''.'
+    severity: ERROR

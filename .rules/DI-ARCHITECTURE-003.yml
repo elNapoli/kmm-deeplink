@@ -1,0 +1,18 @@
+rules:
+  - id: DI-ARCHITECTURE-003-modules-must-be-in-di-package
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          val $VAR = module { ... }
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^(?!.*\.di$)cl\.baldomeronapoli\.\w+\.\w+.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DI-ARCHITECTURE-003] Los módulos de inyección **DEBEN** estar en el paquete ''di''.'
+    severity: ERROR

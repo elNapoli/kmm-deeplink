@@ -1,0 +1,10 @@
+rules:
+  - id: ROOT-ARCHITECTURE-001-allowed-architecture-packages
+    patterns:
+      - pattern: package $PKG
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.trainhub\.\w+\.(?!data|di|domain|presentation|ui|utils)\w+
+    languages: [ kotlin ]
+    message: "[ROOT-ARCHITECTURE-001] Los paquetes **DEBEN** ser 'data', 'di', 'domain', 'presentation', 'ui' y 'utils'."
+    severity: ERROR

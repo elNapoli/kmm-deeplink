@@ -1,0 +1,17 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-012-allowed-usecase-subpackages
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase\.(?!error|exceptionhandler|params|result)\w+
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-012] Los subpaquetes en ''domain.usecase'' **DEBEN** ser ''error'', ''exceptionhandler'', ''params'' o ''result''.'
+    severity: ERROR

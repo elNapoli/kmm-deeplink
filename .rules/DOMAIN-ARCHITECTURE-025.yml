@@ -1,0 +1,19 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-025-exceptionhandler-package-only-exceptionhandlers
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          class $CLASS
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase\.exceptionhandler$
+      - pattern-not-regex: 'class\s+\w+.*:\s*ExceptionHandler'
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-025] En ''domain.usecase.exceptionhandler'' solo se permiten clases que hereden de ''ExceptionHandler''.'
+    severity: ERROR

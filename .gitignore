@@ -1,0 +1,163 @@
+# Kotlin and KMM
+*.iml
+.kotlin
+*.klib
+*.kotlin_module
+*.kotlin_metadata
+
+# Gradle
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Android
+local.properties
+captures/
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+
+# IntelliJ IDEA / Android Studio
+.idea
+*.iws
+*.ipr
+.idea_modules/
+*.iml
+*.swp
+*~
+.DS_Store
+
+# iOS / Xcode
+xcuserdata/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+**/xcshareddata/WorkspaceSettings.xcsettings
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+Pods/
+Carthage/Build/
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+iOSInjectionProject/
+
+# CocoaPods
+Pods/
+*.xcworkspace
+!default.xcworkspace
+Podfile.lock
+
+# Swift Package Manager
+.swiftpm
+.build/
+Package.resolved
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Node / JavaScript (for React Native or web targets)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+secrets.properties
+keystore.properties
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+*~
+
+# Test results
+test-results/
+test-output/
+coverage/
+.coverage
+htmlcov/
+
+# Build artifacts
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.ear
+*.nar
+dist/
+target/
+
+# KMM specific
+.kmm/
+composeApp/.kotlin/
+shared/.kotlin/
+
+# Kotlin Multiplatform
+shared/build/
+androidApp/build/
+iosApp/build/
+desktopApp/build/
+webApp/build/
+
+# Compose Multiplatform
+compose-desktop.properties

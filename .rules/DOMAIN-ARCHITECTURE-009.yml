@@ -1,0 +1,19 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-009-usecases-must-be-in-usecase-package
+    patterns:
+      - pattern: |
+          class $CLASS(...) : FlowUseCase<$PARAM, $RESULT, $ERROR>()
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^(?!.*\.domain\.usecase$)cl\.baldomeronapoli\.\w+\.\w+.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-009] Los casos de uso **DEBEN** estar exactamente en el paquete ''domain.usecase'', sin subpaquetes.'
+    severity: ERROR

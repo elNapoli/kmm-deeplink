@@ -1,0 +1,10 @@
+rules:
+  - id: DATA-ARCHITECTURE-001-allowed-data-packages
+    patterns:
+      - pattern: package $PKG
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.data\.(?!datasource|repository|mapper|model|utils|service)\w+
+    languages: [ kotlin ]
+    message: "[DATA-ARCHITECTURE-001] Los paquetes en 'data' **DEBEN** ser 'datasource', 'repository', 'mapper', 'model', 'service' y 'utils'."
+    severity: ERROR

@@ -1,0 +1,23 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-021-usecase-errors-must-be-sealed-interfaces
+    patterns:
+      - pattern-either:
+          - pattern: class $ERROR
+          - pattern: data class $ERROR(...)
+          - pattern: object $ERROR
+          - pattern: interface $ERROR
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase\.error$
+      - pattern-not-regex: 'sealed\s+interface\s+\w+'
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-021] Los modelos de error en ''domain.usecase.error'' **DEBEN** ser ''sealed interface''.'
+    severity: ERROR

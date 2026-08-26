@@ -1,0 +1,22 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-005-model-data-classes-must-not-have-functions
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          data class $CLASS(...) {
+            ...
+            fun $FUNC(...) { ... }
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.domain\.model.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-005] Los data class en ''domain.model'' **NO DEBEN** tener funciones. Deben ser solo contenedores de datos.'
+    severity: ERROR

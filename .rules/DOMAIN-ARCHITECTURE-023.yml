@@ -1,0 +1,24 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-023-exceptionhandler-class-must-be-in-exceptionhandler-package
+    patterns:
+      - pattern-either:
+          - pattern: class $NAME
+          - pattern: sealed class $NAME
+          - pattern: data class $NAME(...)
+      - metavariable-regex:
+          metavariable: $NAME
+          regex: ^\w+ExceptionHandler$
+      - pattern-inside: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^(?!.*\.domain\.usecase\.exceptionhandler$)cl\.baldomeronapoli\.\w+\.\w+\.domain\.usecase.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-023] Las clases que terminan en ''ExceptionHandler'' **DEBEN** estar en el paquete ''domain.usecase.exceptionhandler''.'
+    severity: ERROR

@@ -1,0 +1,20 @@
+rules:
+  - id: DOMAIN-ARCHITECTURE-013-usecase-params-naming-convention
+    patterns:
+      - pattern: |
+          class $USECASE(...) : FlowUseCase<$P, $_, $_>()
+      - pattern-regex: |
+          class\s+(?<NAME>\w+)UseCase.+
+      - pattern-not-regex: |
+          class\s+(?<NAME>\w+)UseCase\s*\([^\)]*\)\s*:\s*FlowUseCase\s*<\s*\k<NAME>Params\s*,\s*[^,]+\s*,\s*[^>]+\s*>\s*\([^\)]*\).+
+      - metavariable-comparison:
+          metavariable: $P
+          comparison: str($P) not in ["Unit", "Int", "Long", "Double", "Float", "String", "Boolean", "Byte", "Short", "Char"]
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DOMAIN-ARCHITECTURE-013] El parámetro del UseCase debe seguir la convención: si el UseCase es ''XyzUseCase'', el parámetro debe ser ''XyzParams''.'
+    severity: ERROR

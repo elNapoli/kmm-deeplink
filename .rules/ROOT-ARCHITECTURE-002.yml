@@ -1,0 +1,20 @@
+rules:
+  - id: ROOT-ARCHITECTURE-002-root-classes-must-extend-navigation
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          class $CLASS
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.trainhub\.\w+$
+      - pattern-not-regex: "class\\s+\\w+\\s*:\\s*NavigableFeature"
+      - pattern-not-regex: "class\\s+\\w+\\s*:\\s*NavigationHandler"
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: "[ROOT-ARCHITECTURE-002] Las clases en la raíz del módulo **DEBEN** heredar de 'NavigableFeature' o 'NavigationHandler'."
+    severity: ERROR

@@ -1,0 +1,17 @@
+rules:
+  - id: DI-ARCHITECTURE-004-no-subpackages-in-di
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.\w+\.\w+\.di\.\w+.*$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: '[DI-ARCHITECTURE-004] El paquete ''di'' **NO DEBE** contener subpaquetes. Todos los módulos deben estar directamente en ''di''.'
+    severity: ERROR

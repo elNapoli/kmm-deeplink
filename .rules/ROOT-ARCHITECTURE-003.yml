@@ -1,0 +1,18 @@
+rules:
+  - id: ROOT-ARCHITECTURE-003-no-constants-in-module-root
+    patterns:
+      - pattern: |
+          package $PKG
+          ...
+          const val $CONST = $VALUE
+      - metavariable-regex:
+          metavariable: $PKG
+          regex: ^cl\.baldomeronapoli\.trainhub\.\w+$
+    paths:
+      exclude:
+        - '**/test/**'
+        - '**/androidTest/**'
+        - '**/commonTest/**'
+    languages: [ kotlin ]
+    message: "[ROOT-ARCHITECTURE-003] No se permiten constantes en la raíz del módulo. Muévelas a un paquete 'utils' o dentro de una clase."
+    severity: ERROR
