@@ -1,4 +1,4 @@
-package cl.baldomeronapoli.deeplink.domain.usecase
+package cl.baldomeronapoli.deeplink.usecase
 
 import cl.baldomeronapoli.base.domain.models.Destination
 import cl.baldomeronapoli.base.navigation.NavigationCoordinator

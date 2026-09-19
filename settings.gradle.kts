@@ -47,4 +47,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":deeplink-kmp")
+include(":deeplink-kmp-domain")
+include(":deeplink-kmp-presentation")
