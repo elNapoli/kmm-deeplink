@@ -38,8 +38,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // api(): ConsumePendingDeepLinkUseCase.invoke() retorna Destination --
+            // quien consuma este modulo necesita ver ese tipo.
             api(libs.napoli.kmm.base.domain)
-            api(libs.napoli.kmm.navigation.domain)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
         }

@@ -42,6 +42,9 @@ kotlin {
             // api(): HandleDeepLinkUseCase recibe NavigationCoordinator en su
             // constructor -- quien wirea Koin en el modulo consumidor necesita verlo.
             api(libs.napoli.kmm.base.presentation)
+            // implementation(): NavigateToRoute solo se usa dentro del cuerpo de
+            // invoke(), nunca en la firma publica de la clase.
+            implementation(libs.napoli.kmm.navigation.domain)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
         }
