@@ -1,6 +1,6 @@
 # Napoli KMM DeepLink
 
-**Versión 1.0.0**
+**Versión 2.0.0**
 
 Motor Kotlin Multiplatform (KMM) para manejo de deep links: auth-gate,
 persistencia de URI pendiente, y bus de eventos cold-start-safe. El módulo
@@ -67,14 +67,24 @@ maven {
 
 ### 2. Agregar la dependencia
 
+Dos artefactos: `deeplink-kmp-domain` (contratos + use cases puros, sin
+Compose) y `deeplink-kmp-presentation` (`HandleDeepLinkUseCase`, que necesita
+`NavigationCoordinator` de `base-kmp-presentation`).
+
 ```toml
 # gradle/libs.versions.toml
 [versions]
-napoli-deeplink = "1.0.0"
+napoli-deeplink = "2.0.0"
 
 [libraries]
-napoli-kmm-deeplink = { module = "cl.baldomeronapoli:deeplink-kmp", version.ref = "napoli-deeplink" }
+napoli-kmm-deeplink-domain = { module = "cl.baldomeronapoli:deeplink-kmp-domain", version.ref = "napoli-deeplink" }
+napoli-kmm-deeplink-presentation = { module = "cl.baldomeronapoli:deeplink-kmp-presentation", version.ref = "napoli-deeplink" }
 ```
+
+`ConsumePendingDeepLinkUseCase` (no necesita NavController, solo se usa post-login
+para saber a dónde navegar) vive en `deeplink-kmp-domain` — cualquier módulo que
+solo necesite drenar el link pendiente (p.ej. un `domain` de feature) puede
+depender únicamente de `deeplink-kmp-domain`, sin arrastrar `base-kmp-presentation`.
 
 ### 3. Implementar los contratos
 
@@ -142,21 +152,30 @@ factory {
 ## 🏗️ Arquitectura
 
 ```
-deeplink-kmp/commonMain/
+deeplink-kmp-domain/commonMain/          -- sin Compose, api(base-kmp-domain) + api(navigation-kmp-domain)
 ├── domain/
 │   ├── bus/DeepLinkBus.kt                       # buffer cold-start-safe
 │   ├── auth/DeepLinkAuthProvider.kt             # interface: currentUserId()
 │   ├── repository/PendingDeepLinkRepository.kt  # interface: save/consume/clear
 │   └── usecase/
-│       ├── HandleDeepLinkUseCase.kt             # auth-gate + persist-or-navigate
 │       └── ConsumePendingDeepLinkUseCase.kt     # drena URI pendiente post-login
+
+deeplink-kmp-presentation/commonMain/    -- api(deeplink-kmp-domain) + api(base-kmp-presentation)
+└── usecase/
+    └── HandleDeepLinkUseCase.kt                 # auth-gate + persist-or-navigate
+                                                  # (necesita NavigationCoordinator)
 ```
+
+`HandleDeepLinkUseCase` vive en `presentation`, no en `domain`, porque su
+constructor recibe `NavigationCoordinator` — un tipo de `base-kmp-presentation`,
+no de `base-kmp-domain`. El resto del módulo (bus, contratos, el use case de
+consumo post-login) es Kotlin puro y no necesita saber nada de navegación real.
 
 ## 🚀 Publicar una nueva versión
 
 ```bash
-git tag v1.0.1
-git push origin v1.0.1
+git tag v2.0.1
+git push origin v2.0.1
 ```
 
 El workflow `.github/workflows/publish.yml` publica automáticamente a GitHub

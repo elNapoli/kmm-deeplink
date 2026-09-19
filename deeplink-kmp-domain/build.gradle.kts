@@ -31,15 +31,15 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "DeepLink"
+            baseName = "DeepLinkDomain"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.napoli.kmm.base)
-            api(libs.napoli.kmm.navigation)
+            api(libs.napoli.kmm.base.domain)
+            api(libs.napoli.kmm.navigation.domain)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
         }
@@ -52,7 +52,7 @@ kotlin {
 }
 
 android {
-    namespace = "cl.baldomeronapoli.deeplink"
+    namespace = "cl.baldomeronapoli.deeplink.domain"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
